@@ -1,0 +1,7 @@
+fig/
+csv/
+data/
+test/*.csv
+test/*.tsv
+.DS_Store
+presentation/

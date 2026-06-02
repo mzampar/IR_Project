@@ -1,0 +1,70 @@
+
+Final exam project for the Information Retrieval course @ UniTS.
+
+Implementation of LSI (Latent Semantic Indexing), 
+an IR system based on the SVD (singular values decomposition) of the 
+tf-idf (term frequency-inverse document frequency) matrix of terms vs documents in the corpus. 
+
+Author: Marco Zampar @ UniTS
+mail: marco.zampar@studenti.units.it
+
+lsi.sh is the main script that manages the creation of the index, it calls, in order:
+
+- download.py
+- preprocess_parallel.sh & preprocess_parallel.py
+- tf_idf.py
+- svd.py
+- test_queries.py
+- plot_eff_vs_nrel.py
+
+grid_search_lsi.sh was used to run different test with different hyperparameters.
+
+Modules needed:
+
+pandas, numpy, scipy
+matplotlib
+sklearn
+re, unidecode, os, sys, string, json
+nltk
+beir # needed to load the corpus, if you want to run only test_queries.py, no need of this module
+multiprocessing, tqdm # needed in preprocessing corpus, if corpus is already processed, no need of these modules
+
+To run only the test_queries.py script:
+
+# Assuming to be in IR_Project folder
+qrels='./data/trec-covid/qrels/test.tsv'
+queries='./data/trec-covid/queries.jsonl'
+doc_titles='./data/trec-covid/doc_titles.csv'
+svd_dir='./data/svd--1_terms-1_grams-150_components-15_min_df-0.5_max_df'
+min_rel_docs='100'
+n_components='150'
+doc_ids='./data/tf_idf--1_terms-1_grams-15_min_df-0.5_max_df/trec-covid-tfidf_docids.json'
+tfidf_vocabulary='./data/tf_idf--1_terms-1_grams-15_min_df-0.5_max_df/trec-covid-tfidf_vocabulary.json'
+tfidf_values='./data/tf_idf--1_terms-1_grams-15_min_df-0.5_max_df/trec-covid-tfidf_values.npy'
+out_csv='./test/test.tsv'
+
+python test_queries.py $qrels $queries $doc_titles $svd_dir $min_rel_docs $n_components $doc_ids $tfidf_vocabulary $tfidf_values $out_csv
+
+In the test folder:
+test_query.tsv # using only 'query' field to construct the query, mean performance: 0.28
+test_q_text.tsv # using only 'query text' field m.p: 0.36
+test_query_text_narrative.tsv # using all the fields: query text, narrative, query m.p: 0.44
+test_query_text.tsv # using 'query' and 'query text' fields, m.p: 0.35
+
+To generate the summary plot:
+
+python plot_eff_vs_nrel.py './test/test_query.tsv' 'n_rel_docs2' 'ndcg_at_20' 'none' './test/test_query.png'
+
+LLM were used in the deployment of the code, expecially to:
+
+- parallelise the preprocessing of the corpus (in preprocess_parallel.py)
+- use the nltk library (in utils.py)
+- compute the tf-idf matrix (although the idea of adding back the 'covid19' term is mine) (in tf_idf.py)
+- plot the efficiency vs the number of relevant documents (in plot_eff_vs_nrel.py)
+- managing the df with statistics per query and the summary statistics (in test_queries.py)
+
+Btw, the main use of LLM was aimed at solving syntactic aspects of the coding and not conceptual decisions.
+
+The shell scripts that manage the entire analysis were fully thought and deployed by me.
+
+
