@@ -14,7 +14,6 @@ files = [
 "csv/efficiency--1_terms-1_grams-300_components-15_min_df-0.5_max_df-100_min_rel_docs-summary.csv",
 ]
 
-
 data_list = []
 for file in files:
      data = pd.read_csv(file, sep=',')
@@ -26,20 +25,17 @@ plt.figure(figsize=(10, 6))
 
 stat = 'median'
 stat = 'mean'
-# select where metric string column starts with "ndcg"
+# Select where metric string column starts with "ndcg"
 metric = "ndcg"
 df = df[df['metric'].str.startswith(metric)]
 
-# good categorical palette
-#colors = plt.get_cmap('tab10').colors
-colors = plt.get_cmap('Set2').colors
-# generate blue shades
+# Generate blue palette
 n_vals = sorted(df['n_components'].unique())
-
 cmap = plt.get_cmap('Blues')
 colors = cmap(np.linspace(0.4, 0.9, len(n_vals)))
 
 """
+# Grey + 1 blue palette to highlight the line of interest
 colors = np.array([
     [0.49803922, 0.49803922, 0.49803922, 1.0],  # tab:gray
     [0.49803922, 0.49803922, 0.49803922, 1.0],  # tab:gray
@@ -50,6 +46,7 @@ colors = np.array([
 ])
 """
 
+# Loop on components and plot line for each
 for i, n_components in enumerate(sorted(df['n_components'].unique())):
 
     df_subset = df[df['n_components'] == n_components]

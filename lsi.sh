@@ -103,9 +103,9 @@ else
     echo "Folder $svd_out_dir already exists. Skipping SVD decomposition."
 fi
 
-# Test precision and recall on test queries
+# Assess the on test queries
 python test_queries.py $qrels $queries $doc_titles $svd_out_dir $min_rel_docs $n_components $tf_out_doc_ids "$tf_out_vocabulary" "$tfidf_values" "$out_csv"
 
-# Scatter plot of precision vs number of relevant documents
+# Scatter plot of ndcg vs number of relevant documents
 python plot_eff_vs_nrel.py "$out_csv" 'n_rel_docs2' 'ndcg_at_20' 'none' "$out_fig"
 

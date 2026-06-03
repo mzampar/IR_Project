@@ -46,6 +46,12 @@ out_csv='./test/test.tsv'
 python test_queries.py $qrels $queries $doc_titles $svd_dir $min_rel_docs $n_components $doc_ids $tfidf_vocabulary $tfidf_values $out_csv
 
 In the test folder:
+
+# there are 3 fields for each query. i.e.:
+`text`: "what is the origin of COVID-19", 
+`query`: "coronavirus origin", 
+`narrative`: "seeking range of information about the SARS-CoV-2 virus's origin, including its evolution, animal source, and first transmission into humans".
+
 test_query.tsv # using only 'query' field to construct the query, mean performance: 0.28
 test_q_text.tsv # using only 'query text' field m.p: 0.36
 test_query_text_narrative.tsv # using all the fields: query text, narrative, query m.p: 0.44

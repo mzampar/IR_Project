@@ -53,7 +53,7 @@ data_path, out_dir = sys.argv[1:]
 def main():
 
     # (Some tests were performed but at the end these features were not used)
-    # Whether to remove the documents not referring to covid19
+    # Whether to remove the documents not referring to covid19 (in which the term covid19 doesn't appear)
     remove_non_covid19 = False
     # Wheter to consider the word covid19 a stopword
     remove_covid_str = False
@@ -110,7 +110,7 @@ def main():
             f.write(f"{doc_id}\n")
 
     if remove_non_covid19:
-        # save non cov doc ids
+        # save doc ids without covid19 term
         with open(os.path.join(out_dir, "non_cov_docs.txt"), "w") as f:
             for doc_id in non_cov_doc_ids:
                 f.write(f"{doc_id}\n")

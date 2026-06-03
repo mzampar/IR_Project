@@ -64,13 +64,13 @@ print(f"Pearson correlation: {pearson_corr:.2f} (p={p1:.2e})")
 print(f"Spearman correlation: {spearman_corr:.2f} (p={p2:.2e})")
 print(f"Mean performance: {mean_efficiency:.2f}")
 
-# Remove top and right edges of the plot for better visualisation
+# Remove top and right edges of the plot 
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 
 ax.set_xlabel("relevant documents")
-# move label toward right end
+# Move label toward right end
 ax.xaxis.set_label_coords(0.95, -0.08)
 ax.xaxis.set_label_coords(1.01, -0.02)
 

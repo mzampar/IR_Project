@@ -20,7 +20,7 @@ from nltk.tokenize import word_tokenize
 import string
 import numpy as np
 
-# Ensure you have the necessary NLTK data
+# Ensure the necessary NLTK data packages are downloaded
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -74,7 +74,6 @@ def preprocess_text(text, remove_covid=False):
     # Lemmatize
     lemmatizer = WordNetLemmatizer()
     #tokens = [lemmatizer.lemmatize(token) for token in tokens]
-
     pos_tags = pos_tag(tokens)
     tokens = [
         lemmatizer.lemmatize(token, pos=get_wordnet_pos(tag))
